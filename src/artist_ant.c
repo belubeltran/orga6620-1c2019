@@ -8,8 +8,8 @@
 #include "ant_engine.h"
 #include "artist_ant.h"
 
-static uint32_t grid_width = 0;
-static uint32_t grid_height = 0;
+static __uint32_t grid_width = 0;
+static __uint32_t grid_height = 0;
 static square_grid_t grid;
 
 static ant_t ant;
@@ -149,15 +149,15 @@ main(int argc, char **argv)
 }
 
 void*
-make_grid(uint32_t w, uint32_t h, colour_t c)
+make_grid(__uint32_t w, __uint32_t h, colour_t c)
 {
   grid.width = w;
   grid.height = h;
 
-  grid.grid = (uint32_t **) malloc( w * sizeof(uint32_t*));
+  grid.grid = (__uint32_t **) malloc( w * sizeof(__uint32_t*));
 
   for (int i=0; i < w; i++) {
-    grid.grid[i] = (uint32_t *) malloc ( h * sizeof(colour_t));
+    grid.grid[i] = (__uint32_t *) malloc ( h * sizeof(colour_t));
     for (int j = 0; j < h; j++) {
       grid.grid[i][j] =  c;
     }
@@ -167,7 +167,7 @@ make_grid(uint32_t w, uint32_t h, colour_t c)
 }
 
 void*
-make_ant(uint32_t xini, uint32_t yini)
+make_ant(__uint32_t xini, __uint32_t yini)
 {
   ant.x = xini;
   ant.y = yini;
@@ -216,8 +216,8 @@ void grid_out()
   }
 }
 
-uint32_t
-as_int(void *arg, uint32_t from, uint32_t to)
+__uint32_t
+as_int(void *arg, __uint32_t from, __uint32_t to)
 {
 
   assert(from < to);
@@ -225,7 +225,7 @@ as_int(void *arg, uint32_t from, uint32_t to)
   const unsigned char *s = (unsigned char *) arg + from;
   unsigned char *t = (unsigned char *)(arg + to);
 
-  uint32_t n = 0;
+  __uint32_t n = 0;
 
   while (s < t) {
     assert(*s >= '0' && *s <= '9');

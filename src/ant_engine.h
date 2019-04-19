@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void* paint(void *ant, void *grid, void *palette, void *rules,  uint32_t iterations);
+void* paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations);
 
 #define panic(s)       \
   do {                 \
