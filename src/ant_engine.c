@@ -17,8 +17,20 @@ paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations)
 void*
 make_rules(char *spec)
 {
-  panic("Implement me!");
-  return NULL;
+  static char * index = "LR";
+  int i;
+  int len = strlen(spec);
+  int * res = (int *) malloc((int)floor(strlen(spec)/2));
+
+  for (i = 0; i < len; i++) {
+	  char *p = strchr(index, spec[i]);
+
+	  if (p != NULL) {
+	  	res[i] = p - index;
+	  }
+  }
+
+  return ((void*)res);
 }
 
 void*
