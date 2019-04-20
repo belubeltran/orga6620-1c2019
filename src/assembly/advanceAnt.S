@@ -8,6 +8,9 @@
 #define O_A0 8
 #define O_A1 12
 #define O_A2 16
+#define O_ANTX 0
+#define O_ANTY 4
+#define O_ANTO 8
 
 .text
 .align 2
@@ -18,14 +21,15 @@ advanceAnt:
 	sw fp, O_FP(sp)
 	sw gp, O_GP(sp)
 	move fp, sp
-	sw a0, O_A0(fp) # Saving parameters 
-	sw a1, O_A1(fp) 
-	sw a2, O_A2(fp)
+	# Saving parameters
+	sw a0, O_A0(fp) # ant* 
+	sw a1, O_A1(fp) # width
+	sw a2, O_A2(fp) # height
 
 main:
-	lw t0, 8(a0) # t0 = ant->o (orientation)
-	lw t1, 0(a0) # t1 = ant->x
-	lw t2, 4(a0) # t2 = ant->y
+	lw t0, O_ANTO(a0) # t0 = ant->o (orientation)
+	lw t1, O_ANTX(a0) # t1 = ant->x
+	lw t2, O_ANTY(a0) # t2 = ant->y
 	beqz t0, is_north
 	beq t0, 1, is_south
 	beq t0, 2, is_east
@@ -55,7 +59,8 @@ save_new_y:
 	b exit
 
 is_south:
-	bge t2, a2, increment_y
+	subu t4, a2, 1 # t4 = height - 1
+	blt t2, t4, increment_y
 	addiu t3, zero, 0 # t3 = ant->y = 0
 	b save_new_y
 
@@ -64,7 +69,8 @@ increment_y:
 	b save_new_y
 
 is_east:
-	bge t1, a1, increment_x
+	subu t4, a1, 1 # t4 = width - 1
+	blt t1, t4, increment_x
 	addiu t3, zero, 0 # t3 = ant->x = 0
 	b save_new_x
 

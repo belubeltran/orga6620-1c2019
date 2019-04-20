@@ -21,7 +21,7 @@ typedef struct {
     colour_t **grid;
 } square_grid_t;
 
-// void* paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations);
+void* paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations);
 
 #define panic(s)       \
   do {                 \
