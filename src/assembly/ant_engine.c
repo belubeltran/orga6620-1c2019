@@ -74,6 +74,10 @@ advanceAnt(ant_t *ant, __uint32_t width, __uint32_t height)
 	}
 }
 
+/* 
+ * Tam grilla_t = 16
+ * Tam ant_t = 12
+*/
 void*
 paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations)
 {
