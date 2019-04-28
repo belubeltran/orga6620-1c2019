@@ -29,11 +29,11 @@ is_west: # current orientation = west
 	beqz a1, go_south # rotate left
 
 go_north:
-	addiu v0, 0, 0 # new orientation = north
+	addiu v0, zero, 0 # new orientation = north
 	b exit
 
 go_south:
-	addiu v0, 0, 1 # new orientation = south
+	addiu v0, zero, 1 # new orientation = south
 	b exit
 
 is_east: # current orientation = east
@@ -44,11 +44,11 @@ is_north: # current orientation = north
 	beqz a1, go_west # rotate left
 
 go_east:
-	addiu v0, 0, 2 # new orientation = east
+	addiu v0, zero, 2 # new orientation = east
 	b exit
 
 go_west:
-	addiu v0, 0, 3 # new orientation = west
+	addiu v0, zero, 3 # new orientation = west
 	b exit
 
 is_south: # current orientation = south
