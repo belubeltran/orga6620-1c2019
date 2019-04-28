@@ -55,7 +55,7 @@ save_new_y:
 	b exit
 
 is_south:
-	bgte t2, a2, increment_y
+	bge t2, a2, increment_y
 	addiu t3, zero, 0 # t3 = ant->y = 0
 	b save_new_y
 
@@ -64,7 +64,7 @@ increment_y:
 	b save_new_y
 
 is_east:
-	bgte t1, a1, increment_x
+	bge t1, a1, increment_x
 	addiu t3, zero, 0 # t3 = ant->x = 0
 	b save_new_x
 
