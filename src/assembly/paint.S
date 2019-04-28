@@ -60,7 +60,7 @@ main:
 for:
 	lw t2, O_A4(fp) # Load iterations
 	lw t3, O_I(fp) # Load current i
-	bge t2, t3, b_exit # If (iterations < i) continue
+	bge t2, t3, exit # If (iterations < i) continue
 
 	lw t0, O_A(fp) # Load a*
 	lw t2, O_ANTX(t0) # t2 = ant->x
