@@ -37,6 +37,7 @@ paint:
   .set    reorder
 	subu sp, sp, SS # SRA = 16, LTA = 24, ABA = 16
 	.cprestore O_GP
+	# Saving pointers
 	sw ra, O_RA(sp)
 	sw fp, O_FP(sp)
 	sw gp, O_GP(sp)
@@ -72,6 +73,9 @@ for:
 	lw t5, 0(t4) # getting the height array dir
 	addu t5, t5, t2 # moving the pointer in the x dir of the grid
 	lw t4, O_P(fp) # Loading *p
+	li v0, 11
+	add a0, t4, zero
+	syscall
 	sw t4, 0(t5) # g->grid[a->y][a->x] = *p
 
 	lw t0, O_A(fp) # Load a*
