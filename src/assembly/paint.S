@@ -61,9 +61,10 @@ for:
 	lw t3, O_ANTY(t0) # t3 = ant->y
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
-	addiu t4, t4, t3 # moving the pointer in the y direction of the grid
-	lw t5, t0(t4) # getting the height array dir
-	addiu t5, t5, t2 # moving the pointer in the x dir of the grid
+	addu t4, t4, t3 # moving the pointer in the y direction of the grid
+	addu t4, t4, t0 # Getting the dir 
+	lw t5, 0(t4) # getting the height array dir
+	addu t5, t5, t2 # moving the pointer in the x dir of the grid
 	lw t4, O_P(fp) # Loading *p
 	sw t4, 0(t5) # g->grid[a->y][a->x] = *p
 
@@ -72,7 +73,8 @@ for:
 	move a0, t1 # Save parameters for function call
 	lw t0, O_I(fp) # Load current i
 	lw t1, O_R(fp) # Load *r
-	lw t2, t0(t1) # Getting r[i]
+	addu t0, t0, t1 # Getting dir
+	lw t2, 0(t0) # Getting r[i]
 	move a1, t2 # Save parameter for function call
 	jal getNextOrientation
 	lw t0, O_A(fp) # Load a*
