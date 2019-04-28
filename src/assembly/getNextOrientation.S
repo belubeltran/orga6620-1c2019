@@ -11,9 +11,9 @@
 
 .text
 .align 2
-.globl getOrientation
+.globl getNextOrientation
 
-getOrientation:
+getNextOrientation:
 	subu sp, sp, SS # SRA = 8, LTA = 0, ABA = 0
 	sw $fp, O_FP(sp)
 	sw gp, O_GP(sp)
