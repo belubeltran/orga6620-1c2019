@@ -10,29 +10,31 @@ extern orientation_t getNextOrientation(orientation_t, rotation_t);
 
 extern void advanceAnt(ant_t*, __uint32_t, __uint32_t);
 
+extern void* paint(void*, void*, void*, void*,__uint32_t);
+
 /* 
  * Tam grilla_t = 16
  * Tam ant_t = 12
 */
-void*
-paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations)
-{
-	char *p = (char*)palette + 1;
-	char *r = (char*)rules;
-	square_grid_t *g = (square_grid_t*)grid;
-	ant_t *a = (ant_t *)ant;
-	int i;
+// void*
+// paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations)
+// {
+// 	char *p = (char*)palette + 1;
+// 	char *r = (char*)rules;
+// 	square_grid_t *g = (square_grid_t*)grid;
+// 	ant_t *a = (ant_t *)ant;
+// 	int i;
 
-	// Assuming iterations <= # rules
-	for (i = 0; i < iterations; i++) {
-		g->grid[a->y][a->x] = *p;
-		a->o = getNextOrientation(a->o, r[i]);
-		advanceAnt(a, g->width, g->height);
-		p++;
-	}
+// 	// Assuming iterations <= # rules
+// 	for (i = 0; i < iterations; i++) {
+// 		g->grid[a->y][a->x] = *p;
+// 		a->o = getNextOrientation(a->o, r[i]);
+// 		advanceAnt(a, g->width, g->height);
+// 		p++;
+// 	}
 
-  return grid;
-}
+//   return grid;
+// }
 
 void*
 make_rules(char *spec)
