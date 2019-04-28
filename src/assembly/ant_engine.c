@@ -1,38 +1,10 @@
 #include "ant_engine.h"
 
 #include <math.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <string.h>
 
 /* This file should be removed once all .S files are done */
-extern getNextOrientation(orientation_t, rotation_t);
-// orientation_t
-// getNextOrientation(orientation_t current, rotation_t rotation)
-// {
-// 	switch(current) {
-// 		case NORTH:
-// 			if (rotation == RR) {
-// 				return EAST;
-// 			}
-// 			return WEST;
-// 		case EAST:
-// 			if (rotation == RR) {
-// 				return SOUTH;
-// 			}
-// 			return NORTH;
-// 		case SOUTH:
-// 			if (rotation == RR) {
-// 				return WEST;
-// 			}
-// 			return EAST;
-// 		case WEST:
-// 			if (rotation == RR) {
-// 				return NORTH;
-// 			}
-// 			return SOUTH;
-// 	}
-// }
+extern orientation_t getNextOrientation(orientation_t, rotation_t);
 
 void
 advanceAnt(ant_t *ant, __uint32_t width, __uint32_t height)
