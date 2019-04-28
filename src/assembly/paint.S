@@ -31,7 +31,7 @@
 
 paint:
 	.ent paint
-	.frame sp, SS ra
+	.frame sp, SS, ra
   .set    noreorder
   .cpload t9
   .set    reorder
