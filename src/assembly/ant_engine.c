@@ -1,49 +1,14 @@
 #include "ant_engine.h"
 
 #include <math.h>
+#include <stdlib.h>
 #include <string.h>
 
 /* This file should be removed once all .S files are done */
+
 extern orientation_t getNextOrientation(orientation_t, rotation_t);
 
-void
-advanceAnt(ant_t *ant, __uint32_t width, __uint32_t height)
-{
-	switch(ant->o) {
-		case NORTH:
-			if (ant->y > 0) {
-				ant->y--;
-			}
-			else {
-				ant->y = height - 1;
-			}
-			break;
-		case EAST:
-			if (ant->x < width) {
-				ant->x = 0;
-			}
-			else {
-				ant->x++;
-			}
-			break;
-		case SOUTH:
-			if (ant->y < height) {
-				ant->y = 0;
-			}
-			else {
-				ant->y++;
-			}
-			break;
-		case WEST:
-			if (ant->x > 0) {
-				ant->x--;
-			}
-			else {
-				ant->x = width - 1;
-			}
-			break;
-	}
-}
+extern void advanceAnt(ant_t, __uint32_t, __uint32_t);
 
 /* 
  * Tam grilla_t = 16

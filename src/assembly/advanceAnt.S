@@ -1,7 +1,6 @@
 #ifndef USE_MIPS_ASSEMBLY
 #define USE_MIPS_ASSEMBLY
-#include <mips/regdef.h>
-#include <sys/syscall.h>
+#include <sys/regdef.h>
 
 #define SS 8
 #define O_FP 4
@@ -16,12 +15,12 @@
 
 advanceAnt:
 	subu sp, sp, SS # SRA = 8, LTA = 0, ABA = 0
-	sw $fp, O_FP(sp)
+	sw fp, O_FP(sp)
 	sw gp, O_GP(sp)
-	move $fp, sp
-	sw a0, O_A0($fp) # Saving parameters 
-	sw a1, O_A1($fp) 
-	sw a2, O_A2($fp)
+	move fp, sp
+	sw a0, O_A0(fp) # Saving parameters 
+	sw a1, O_A1(fp) 
+	sw a2, O_A2(fp)
 
 main:
 	lw t0, 8(a0) # t0 = ant->o (orientation)
@@ -57,7 +56,7 @@ save_new_y:
 
 is_south:
 	bgte t2, a2, increment_y
-	addiu t3, 0, 0 # t3 = ant->y = 0
+	addiu t3, zero, 0 # t3 = ant->y = 0
 	b save_new_y
 
 increment_y:
@@ -66,7 +65,7 @@ increment_y:
 
 is_east:
 	bgte t1, a1, increment_x
-	addiu t3, 0, 0 # t3 = ant->x = 0
+	addiu t3, zero, 0 # t3 = ant->x = 0
 	b save_new_x
 
 increment_x:
@@ -77,7 +76,7 @@ exit:
 	lw a0, O_A0(sp)
 	lw a1, O_A1(sp)
 	lw a2, O_A2(sp)
-	lw $fp, O_FP(sp)
+	lw fp, O_FP(sp)
 	lw gp, O_GP(sp)
 	addiu sp, sp, SS
 	j ra
