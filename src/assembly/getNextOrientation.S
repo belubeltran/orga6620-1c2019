@@ -1,7 +1,6 @@
 #ifndef USE_MIPS_ASSEMBLY
 #define USE_MIPS_ASSEMBLY
-#include <mips/regdef.h>
-#include <sys/syscall.h>
+#include <asm/regdef.h>
 
 #define SS 8
 #define O_FP 4
