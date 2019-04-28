@@ -14,11 +14,11 @@
 
 getNextOrientation:
 	subu sp, sp, SS # SRA = 8, LTA = 0, ABA = 0
-	sw $fp, O_FP(sp)
+	sw fp, O_FP(sp)
 	sw gp, O_GP(sp)
-	move $fp, sp
-	sw a0, O_A0($fp) # Saving parameters 
-	sw a1, O_A1($fp)
+	move fp, sp
+	sw a0, O_A0(fp) # Saving parameters 
+	sw a1, O_A1(fp)
 
 main:
 	beqz a0, is_north # current orientation = north
@@ -58,7 +58,7 @@ is_south: # current orientation = south
 exit:
 	lw a0, O_A0(sp)
 	lw a1, O_A1(sp)
-	lw $fp, O_FP(sp)
+	lw fp, O_FP(sp)
 	lw gp, O_GP(sp)
 	addiu sp, sp, SS
 	j ra
