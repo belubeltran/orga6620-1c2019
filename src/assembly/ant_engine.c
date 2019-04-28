@@ -1,6 +1,5 @@
 #include "ant_engine.h"
 
-#include <assert.h>
 #include <math.h>
 #include <unistd.h>
 #include <stdlib.h>
