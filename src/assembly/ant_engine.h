@@ -22,7 +22,6 @@ typedef struct {
 } square_grid_t;
 
 // void* paint(void *ant, void *grid, void *palette, void *rules,  __uint32_t iterations);
-extern void* paint(void*, void*, void*, void*,__uint32_t);
 
 #define panic(s)       \
   do {                 \
