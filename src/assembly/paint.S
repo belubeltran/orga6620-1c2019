@@ -66,14 +66,14 @@ for:
 
 	lw t0, O_A(fp) # Load a*
 	l.s $f2, O_ANTX(t0) # t2 = ant->x
-	l.s $f3, O_ANTY(t0) # t3 = ant->y
+	l.s $f4, O_ANTY(t0) # t3 = ant->y
 	l.d $f0, O_G(fp) # Load *g
-	l.s $f1, O_GRID($f0) # Load *grid
-	add.s $f1, $f1, $f3 # moving the pointer in the y direction of the grid
-	l.s $f5, 0($f1) # getting the height array dir
-	add.s $f5, $f5, $f2 # moving the pointer in the x dir of the grid
+	l.s $f6, O_GRID($f0) # Load *grid
+	add.s $f6, $f6, $f4 # moving the pointer in the y direction of the grid
+	l.s $f8, 0($f6) # getting the height array dir
+	add.s $f8, $f8, $f2 # moving the pointer in the x dir of the grid
 	l.s $f4, O_P(fp) # Loading *p
-	s.s $f4, 0($f5) # g->grid[a->y][a->x] = *p
+	s.s $f4, 0($f8) # g->grid[a->y][a->x] = *p
 
 # 	lw t0, O_A(fp) # Load a*
 # 	lw t1, O_ANTO(t0) # t0 = ant->o
