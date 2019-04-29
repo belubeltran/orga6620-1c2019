@@ -1,6 +1,7 @@
 #ifndef USE_MIPS_ASSEMBLY
 #define USE_MIPS_ASSEMBLY
 #include <sys/regdef.h>
+#include <sys/syscall.h>
 
 #define SS 56
 #define O_RA 48
@@ -73,9 +74,9 @@ for:
 	lw t5, 0(t4) # getting the height array dir
 	addu t5, t5, t2 # moving the pointer in the x dir of the grid
 	lw t4, O_P(fp) # Loading *p
-	li v0, 11
-	add a0, t4, zero
-	syscall
+  li  v0, 1           # service 1 is print integer
+  add a0, t4, zero  # load desired value into argument register $a0, using pseudo-op
+  syscall
 	sw t4, 0(t5) # g->grid[a->y][a->x] = *p
 
 	lw t0, O_A(fp) # Load a*
