@@ -1,10 +1,8 @@
 #include "ant_engine.h"
 
-#include <assert.h>
 #include <math.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <string.h>
 
 orientation_t
 getNextOrientation(orientation_t current, rotation_t rotation)
