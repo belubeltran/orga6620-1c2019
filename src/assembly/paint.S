@@ -50,57 +50,57 @@ paint:
 	sw a3, O_A3(fp) # *rules
 	# what do I do with the 5th param?
 
-main:
-	addiu t0, a2, 1 # t0 = *palette + 1
-	sw t0, O_P(fp) # Saving *p in LTA
-	sw a3, O_R(fp) # Saving *r in LTA
-	sw a1, O_G(fp) # Saving *g in LTA
-	sw a0, O_A(fp) # Saving *a in LTA
-	addiu t1, zero, 0 # i = 0
-	sw t1, O_I(fp) # Saving i in LTA
+# main:
+# 	addiu t0, a2, 1 # t0 = *palette + 1
+# 	sw t0, O_P(fp) # Saving *p in LTA
+# 	sw a3, O_R(fp) # Saving *r in LTA
+# 	sw a1, O_G(fp) # Saving *g in LTA
+# 	sw a0, O_A(fp) # Saving *a in LTA
+# 	addiu t1, zero, 0 # i = 0
+# 	sw t1, O_I(fp) # Saving i in LTA
 
-for:
-	lw t2, O_A4(fp) # Load iterations
-	lw t3, O_I(fp) # Load current i
-	bge t3, t2, exit # If (iterations < i) continue
+# for:
+# 	lw t2, O_A4(fp) # Load iterations
+# 	lw t3, O_I(fp) # Load current i
+# 	bge t3, t2, exit # If (iterations < i) continue
 
-	lw t0, O_A(fp) # Load a*
-	lw t2, O_ANTX(t0) # t2 = ant->x
-	lw t3, O_ANTY(t0) # t3 = ant->y
-	lw t0, O_G(fp) # Load *g
-	lw t4, O_GRID(t0) # t4 = *grid
-	addu t4, t4, t3 # moving the pointer in the y direction of the grid
-	lw t5, 0(t4) # getting the height array dir
-	addu t5, t5, t2 # moving the pointer in the x dir of the grid
-	lw t4, O_P(fp) # Loading *p
-	sw t4, 0(t5) # g->grid[a->y][a->x] = *p
+# 	lw t0, O_A(fp) # Load a*
+# 	lw t2, O_ANTX(t0) # t2 = ant->x
+# 	lw t3, O_ANTY(t0) # t3 = ant->y
+# 	lw t0, O_G(fp) # Load *g
+# 	lw t4, O_GRID(t0) # t4 = *grid
+# 	addu t4, t4, t3 # moving the pointer in the y direction of the grid
+# 	lw t5, 0(t4) # getting the height array dir
+# 	addu t5, t5, t2 # moving the pointer in the x dir of the grid
+# 	lw t4, O_P(fp) # Loading *p
+# 	sw t4, 0(t5) # g->grid[a->y][a->x] = *p
 
-	lw t0, O_A(fp) # Load a*
-	lw t1, O_ANTO(t0) # t0 = ant->o
-	move a0, t1 # Save parameters for function call
-	lw t0, O_I(fp) # Load current i
-	lw t1, O_R(fp) # Load *r
-	addu t0, t0, t1 # Getting dir
-	lw t2, 0(t0) # Getting r[i]
-	move a1, t2 # Save parameter for function call
-	jal getNextOrientation
-	lw t0, O_A(fp) # Load a*
-	sw v0, O_ANTO(t0) # Saving new orientation
+# 	lw t0, O_A(fp) # Load a*
+# 	lw t1, O_ANTO(t0) # t0 = ant->o
+# 	move a0, t1 # Save parameters for function call
+# 	lw t0, O_I(fp) # Load current i
+# 	lw t1, O_R(fp) # Load *r
+# 	addu t0, t0, t1 # Getting dir
+# 	lw t2, 0(t0) # Getting r[i]
+# 	move a1, t2 # Save parameter for function call
+# 	jal getNextOrientation
+# 	lw t0, O_A(fp) # Load a*
+# 	sw v0, O_ANTO(t0) # Saving new orientation
 
-	lw t0, O_A(fp) # Load a*
-	move a0, t0 # Saving parameters for function call
-	lw t0, O_G(fp) # Load g*
-	lw t1, O_GRIDW(t0) # Loading Grid width
-	lw t2, O_GRIDH(t0) # Loading Grid height
-	move a1, t1 # Saving parameters for function call
-	move a2, t2 # Saving parameters for function call
-	jal advanceAnt
+# 	lw t0, O_A(fp) # Load a*
+# 	move a0, t0 # Saving parameters for function call
+# 	lw t0, O_G(fp) # Load g*
+# 	lw t1, O_GRIDW(t0) # Loading Grid width
+# 	lw t2, O_GRIDH(t0) # Loading Grid height
+# 	move a1, t1 # Saving parameters for function call
+# 	move a2, t2 # Saving parameters for function call
+# 	jal advanceAnt
 
-	lw t0, O_P(fp) # Load *p
-	addiu t0, t0, 1 # p++
-	sw t0, O_P(fp) # Save new *p in LTA
+# 	lw t0, O_P(fp) # Load *p
+# 	addiu t0, t0, 1 # p++
+# 	sw t0, O_P(fp) # Save new *p in LTA
 
-	b for
+# 	b for
 
 exit:
 	lw a0, O_A0(sp)
