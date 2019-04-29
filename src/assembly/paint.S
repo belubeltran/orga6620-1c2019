@@ -31,13 +31,13 @@
 .extern getNextOrientation
 
 paint:
-	# .ent paint
-	# .frame sp, SS, ra
- #  .set    noreorder
- #  .cpload t9
- #  .set    reorder
-	# subu sp, sp, SS # SRA = 16, LTA = 24, ABA = 16
-	# .cprestore O_GP
+	.ent paint
+	.frame sp, SS, ra
+  .set    noreorder
+  .cpload t9
+  .set    reorder
+	subu sp, sp, SS # SRA = 16, LTA = 24, ABA = 16
+	.cprestore O_GP
 	# Saving pointers
 	sw ra, O_RA(sp)
 	sw fp, O_FP(sp)
@@ -112,6 +112,6 @@ exit:
 	lw gp, O_GP(sp)
 	addiu sp, sp, SS
 	j ra
-	# .end paint
+	.end paint
 
 #endif
