@@ -50,14 +50,14 @@ paint:
 	sw a3, O_A3(fp) # *rules
 	# what do I do with the 5th param?
 
-# main:
-# 	addiu t0, a2, 1 # t0 = *palette + 1
-# 	sw t0, O_P(fp) # Saving *p in LTA
-# 	sw a3, O_R(fp) # Saving *r in LTA
-# 	sw a1, O_G(fp) # Saving *g in LTA
-# 	sw a0, O_A(fp) # Saving *a in LTA
-# 	addiu t1, zero, 0 # i = 0
-# 	sw t1, O_I(fp) # Saving i in LTA
+main:
+	addiu t0, a2, 1 # t0 = *palette + 1
+	sw t0, O_P(fp) # Saving *p in LTA
+	sw a3, O_R(fp) # Saving *r in LTA
+	sw a1, O_G(fp) # Saving *g in LTA
+	sw a0, O_A(fp) # Saving *a in LTA
+	addiu t1, zero, 0 # i = 0
+	sw t1, O_I(fp) # Saving i in LTA
 
 # for:
 # 	lw t2, O_A4(fp) # Load iterations
