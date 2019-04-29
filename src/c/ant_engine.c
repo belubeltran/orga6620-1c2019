@@ -44,7 +44,7 @@ advanceAnt(ant_t *ant, __uint32_t width, __uint32_t height)
 			}
 			break;
 		case EAST:
-			if (ant->x < width) {
+			if (ant->x >= width -1) {
 				ant->x = 0;
 			}
 			else {
@@ -52,7 +52,7 @@ advanceAnt(ant_t *ant, __uint32_t width, __uint32_t height)
 			}
 			break;
 		case SOUTH:
-			if (ant->y < height) {
+			if (ant->y >= height-1) {
 				ant->y = 0;
 			}
 			else {
