@@ -6,11 +6,6 @@
 
 /* This file should be removed once all .S files are done */
 
-extern orientation_t getNextOrientation(orientation_t, rotation_t);
-
-extern void advanceAnt(ant_t*, __uint32_t, __uint32_t);
-
-extern void* paint(void*, void*, void*, void*,__uint32_t);
 
 /* 
  * Tam grilla_t = 16

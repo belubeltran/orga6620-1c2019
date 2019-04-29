@@ -19,6 +19,10 @@ static void* rules;
 static int32_t iterations = 0 ;
 static colour_t initial;
 
+extern orientation_t getNextOrientation(orientation_t, rotation_t);
+extern void advanceAnt(ant_t*, __uint32_t, __uint32_t);
+extern void* paint(void*, void*, void*, void*,__uint32_t);
+
 static void
 show_warn(char *p)
 {
