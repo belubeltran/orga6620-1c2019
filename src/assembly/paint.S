@@ -70,13 +70,9 @@ for:
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
 	addu t4, t4, t3 # moving the pointer in the y direction of the grid
-	addu t4, t4, t0 # Getting the dir 
 	lw t5, 0(t4) # getting the height array dir
 	addu t5, t5, t2 # moving the pointer in the x dir of the grid
 	lw t4, O_P(fp) # Loading *p
-  li  v0, 1           # service 1 is print integer
-  add a0, t4, zero  # load desired value into argument register $a0, using pseudo-op
-  syscall
 	sw t4, 0(t5) # g->grid[a->y][a->x] = *p
 
 	lw t0, O_A(fp) # Load a*
