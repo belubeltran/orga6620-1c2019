@@ -59,10 +59,10 @@ main:
 	addiu t1, zero, 0 # i = 0
 	sw t1, O_I(fp) # Saving i in LTA
 
-# for:
-# 	lw t2, O_A4(fp) # Load iterations
-# 	lw t3, O_I(fp) # Load current i
-# 	bge t3, t2, exit # If (iterations < i) continue
+for:
+	lw t2, O_A4(fp) # Load iterations
+	lw t3, O_I(fp) # Load current i
+	bge t3, t2, exit # If (iterations < i) continue
 
 # 	lw t0, O_A(fp) # Load a*
 # 	lw t2, O_ANTX(t0) # t2 = ant->x
