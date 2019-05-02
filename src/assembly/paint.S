@@ -29,15 +29,15 @@
 .globl paint
 .extern advanceAnt
 .extern getNextOrientation
+.ent paint
 
 paint:
-	.ent paint
 	.frame sp, SS, ra
-  .set    noreorder
+  .set noreorder
   .cpload t9
-  .set    reorder
+  .set reorder
 	subu sp, sp, SS # SRA = 16, LTA = 24, ABA = 16
-	.cprestore O_GP
+	#.cprestore O_GP
 	# Saving pointers
 	sw ra, O_RA(sp)
 	sw fp, O_FP(sp)
