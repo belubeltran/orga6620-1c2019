@@ -72,17 +72,29 @@ save_next_color:
 	li t0, 4 # t0 = 4
 	mul t3, t3, t0 # Multiply address by 4
 
+	# Find block where x is located
+	divu t2, t0 # Looking for the block in which the x byte is
+	mflo t2 # Saving anx->x / 4
+	mfhi t6 # Saving ant-> x mod 4
+
 	# Load Grid
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
 	addu t4, t4, t3 # moving the pointer in the y direction of the grid
 	lw t5, 0(t4) # getting the height array dir
-#	addu t5, t5, t2 # moving the pointer in the x dir of the grid to get block
+	li t0, 4 # t0 = 4
+	mul t4, t2, t0 # Multiply address by 4
+	addu t5, t5, t2 # moving the pointer in the x dir of the grid to get block
+	lw t3, 0(t5) # Load current block
 
 	# Save new palette value
 	lw t4, O_P(fp) # Loading p*
 	lb t2, 0(t4) # Getting value in *p
-	sb t2, 0(t5) # g->grid[a->y][a->x] = *p
+	addu t7, t2, zero # Move value of *p to t7
+	# shift de t7, en t6
+	# add de t7 y t3
+	# guardar resultado 
+	sw t2, 0(t5) # g->grid[a->y][a->x] = *p
 
 	# lw t0, O_A(fp) # Load a*
 	# lw t1, O_ANTO(t0) # t0 = ant->o
