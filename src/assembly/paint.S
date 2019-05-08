@@ -65,8 +65,8 @@ for:
 	bge t3, t2, exit # If (iterations < i) continue
 
 	lw t0, O_A(fp) # Load a*
-	lb t2, O_ANTX(t0) # t2 = ant->x
-	lb t3, O_ANTY(t0) # t3 = ant->y
+	lw t2, O_ANTX(t0) # t2 = ant->x
+	lw t3, O_ANTY(t0) # t3 = ant->y
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
 	addu t4, t4, t3 # moving the pointer in the y direction of the grid
