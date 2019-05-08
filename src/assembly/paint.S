@@ -97,23 +97,21 @@ save_next_color:
 	not t6, t6 # inverting t6
 	and t3, t3, t6 # Putting a 0 where it is needed
 	addu t7, t7, t3 # Adding the new p* to the current block
-
-	# shift de t7, en t6
-	# add de t7 y t3
-	# guardar resultado 
 	sw t2, 0(t5) # g->grid[a->y][a->x] = *p
 
-	# lw t0, O_A(fp) # Load a*
-	# lw t1, O_ANTO(t0) # t0 = ant->o
-	# move a0, t1 # Save parameters for function call
-	# lw t0, O_I(fp) # Load current i
-	# lw t1, O_R(fp) # Load *r
-	# addu t0, t0, t1 # Getting dir
-	# lw t2, 0(t0) # Getting r[i]
-	# move a1, t2 # Save parameter for function call
-	# jal getNextOrientation
-	# lw t0, O_A(fp) # Load a*
-	# sw v0, O_ANTO(t0) # Saving new orientation
+get_next_orientation:
+	# Load Ant
+	lw t0, O_A(fp) # Load a*
+	lw t1, O_ANTO(t0) # t0 = ant->o
+	move a0, t1 # Save parameters for function call
+	lw t0, O_I(fp) # Load current i
+	lw t1, O_R(fp) # Load *r
+	addu t0, t0, t1 # Getting dir
+	lw t2, 0(t0) # Getting r[i]
+	move a1, t2 # Save parameter for function call
+	jal getNextOrientation
+	lw t0, O_A(fp) # Load a*
+	sw v0, O_ANTO(t0) # Saving new orientation
 
 	# lw t0, O_A(fp) # Load a*
 	# move a0, t0 # Saving parameters for function call
