@@ -91,6 +91,13 @@ save_next_color:
 	lw t4, O_P(fp) # Loading p*
 	lb t2, 0(t4) # Getting value in *p
 	addu t7, t2, zero # Move value of *p to t7
+	li t0, 3
+	subu t6, t0, t6 # t6 = 3 - t6
+	sll t7, t7, t6 # Shift t6 positions left
+	not t6, t6 # inverting t6
+	and t3, t3, t6 # Putting a 0 where it is needed
+	addu t7, t7, t3 # Adding the new p* to the current block
+
 	# shift de t7, en t6
 	# add de t7 y t3
 	# guardar resultado 
