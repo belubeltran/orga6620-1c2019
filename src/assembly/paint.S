@@ -64,18 +64,25 @@ for:
 	lw t3, O_I(fp) # Load current i
 	bge t3, t2, exit # If (iterations < i) continue
 
+save_next_color:
+	# Load Ant
 	lw t0, O_A(fp) # Load a*
 	lw t2, O_ANTX(t0) # t2 = ant->x
-	li t3, 4 # t3 = 4
-	divu t2, t3 # Looking for the block in which the byte is
-	mfhi t2 # Saving anx->x mod 4
-	mflo t3
 	lw t3, O_ANTY(t0) # t3 = ant->y
+
+	# Find block where x is located
+	li t0, 4 # t0 = 4
+	divu t2, t0 # Looking for the block in which the x byte is
+	mflo t2 # Saving anx->x mod 4
+
+	# Load Grid
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
 	addu t4, t4, t3 # moving the pointer in the y direction of the grid
 	lw t5, 0(t4) # getting the height array dir
 	addu t5, t5, t2 # moving the pointer in the x dir of the grid
+
+	# Save new palette value
 	lw t4, O_P(fp) # Loading *p
 	lb t2, 0(t4) # Getting value in *p
 	sw t2, 0(t5) # g->grid[a->y][a->x] = *p
