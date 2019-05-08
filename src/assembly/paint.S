@@ -67,24 +67,24 @@ for:
 save_next_color:
 	# Load Ant
 	lw t0, O_A(fp) # Load a*
-	lw t2, O_ANTX(t0) # t2 = ant->x
-	lw t3, O_ANTY(t0) # t3 = ant->y
+	lw t3, O_ANTX(t0) # t3 = ant->x
+	lw t2, O_ANTY(t0) # t2 = ant->y
 	li t0, 4 # t0 = 4
 	mul t3, t3, t0 # Multiply address by 4
 
-	# Find block where x is located
-	divu t2, t0 # Looking for the block in which the x byte is
-	mflo t2 # Saving anx->x / 4
-	mfhi t6 # Saving ant->x mod 4
+	# Find block where y is located
+	divu t2, t0 # Looking for the block in which the y byte is
+	mflo t2 # Saving anx->y / 4
+	mfhi t6 # Saving ant->y mod 4
 
 	# Load Grid
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
-	addu t4, t4, t3 # moving the pointer in the y direction of the grid
+	addu t4, t4, t3 # moving the pointer in the x direction of the grid
 	lw t5, 0(t4) # getting the height array dir
 	li t0, 4 # t0 = 4
 	mul t4, t2, t0 # Multiply address by 4
-	addu t5, t5, t2 # moving the pointer in the x dir of the grid to get block
+	addu t5, t5, t2 # moving the pointer in the y dir of the grid to get block
 	lw t3, 0(t5) # Load current block
 
 	# Save new palette value
@@ -100,7 +100,7 @@ save_next_color:
 	sll t8, t8, t6 # Getting the 0s where they are needed
 	and t3, t3, t6 # Putting a 0 where it is needed
 	addu t7, t7, t3 # Adding the new p* to the current block
-	sw t2, 0(t5) # g->grid[a->y][a->x] = *p
+	sw t2, 0(t5) # g->grid[a->x][a->y] = *p
 
 get_next_orientation:
 	# Load Ant
