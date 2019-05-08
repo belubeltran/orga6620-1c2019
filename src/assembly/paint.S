@@ -128,9 +128,15 @@ advance_ant:
 	# Function call
 	jal advanceAnt
 
+increment_p:
 	lw t0, O_P(fp) # Load *p
 	addiu t0, t0, 1 # p++
 	sw t0, O_P(fp) # Save new *p in LTA
+
+increment_i:
+	lw t0, O_I(fp) # Load current i
+	addiu t0, t0, 1 # i += 1
+	sw to, O_I(fp) # Save new i
 
 	b for
 
