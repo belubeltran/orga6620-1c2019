@@ -136,7 +136,7 @@ increment_p:
 increment_i:
 	lw t0, O_I(fp) # Load current i
 	addiu t0, t0, 1 # i += 1
-	sw to, O_I(fp) # Save new i
+	sw t0, O_I(fp) # Save new i
 
 	b for
 
