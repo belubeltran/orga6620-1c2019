@@ -66,6 +66,9 @@ for:
 
 	lw t0, O_A(fp) # Load a*
 	lw t2, O_ANTX(t0) # t2 = ant->x
+	li t3, 4 # t3 = 4
+	divu t2, t3 # Looking for the block in which the byte is
+	mfhi t2 # Saving anx->x mod 4
 	lw t3, O_ANTY(t0) # t3 = ant->y
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
