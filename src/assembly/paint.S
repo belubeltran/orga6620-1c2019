@@ -78,7 +78,7 @@ save_next_color:
 	mfhi t6 # Saving ant-> x mod 4
 
 	li t3, 0 # y = 0
-	li t2, 0 # x = 0
+	li t2, 1 # x = 1
 
 	# Load Grid
 	lw t0, O_G(fp) # Load *g
