@@ -78,6 +78,7 @@ save_next_color:
 	addu t4, t4, t3 # moving the pointer in the y direction of the grid
 	lw t5, 0(t4) # getting the height array dir
 	addu t5, t5, t2 # moving the pointer in the x dir of the grid
+	lb t8, 0(t5) # Just checking whats in there
 
 	# Save new palette value
 	lw t4, O_P(fp) # Loading p*
