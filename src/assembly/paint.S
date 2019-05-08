@@ -69,15 +69,13 @@ save_next_color:
 	lw t0, O_A(fp) # Load a*
 	lw t2, O_ANTX(t0) # t2 = ant->x
 	lw t3, O_ANTY(t0) # t3 = ant->y
-	li t3, 1 # y = 0
-	li t2, 0 # x = 1
 	li t0, 4 # t0 = 4
 	mul t3, t3, t0 # Multiply address by 4
 
 	# Find block where x is located
 	divu t2, t0 # Looking for the block in which the x byte is
 	mflo t2 # Saving anx->x / 4
-	mfhi t6 # Saving ant-> x mod 4
+	mfhi t6 # Saving ant->x mod 4
 
 	# Load Grid
 	lw t0, O_G(fp) # Load *g
