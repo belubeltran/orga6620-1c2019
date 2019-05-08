@@ -104,29 +104,35 @@ get_next_orientation:
 	lw t0, O_A(fp) # Load a*
 	lw t1, O_ANTO(t0) # t0 = ant->o
 	move a0, t1 # Save parameters for function call
+	# Get current r[i]
 	lw t0, O_I(fp) # Load current i
 	lw t1, O_R(fp) # Load *r
 	addu t0, t0, t1 # Getting dir
 	lw t2, 0(t0) # Getting r[i]
 	move a1, t2 # Save parameter for function call
+	# Function call
 	jal getNextOrientation
 	lw t0, O_A(fp) # Load a*
 	sw v0, O_ANTO(t0) # Saving new orientation
 
-	# lw t0, O_A(fp) # Load a*
-	# move a0, t0 # Saving parameters for function call
-	# lw t0, O_G(fp) # Load g*
-	# lw t1, O_GRIDW(t0) # Loading Grid width
-	# lw t2, O_GRIDH(t0) # Loading Grid height
-	# move a1, t1 # Saving parameters for function call
-	# move a2, t2 # Saving parameters for function call
-	# jal advanceAnt
+advance_ant:
+	# Load Ant
+	lw t0, O_A(fp) # Load a*
+	move a0, t0 # Saving parameters for function call
+	# Get grid with and height
+	lw t0, O_G(fp) # Load g*
+	lw t1, O_GRIDW(t0) # Loading Grid width
+	lw t2, O_GRIDH(t0) # Loading Grid height
+	move a1, t1 # Saving parameters for function call
+	move a2, t2 # Saving parameters for function call
+	# Function call
+	jal advanceAnt
 
-	# lw t0, O_P(fp) # Load *p
-	# addiu t0, t0, 1 # p++
-	# sw t0, O_P(fp) # Save new *p in LTA
+	lw t0, O_P(fp) # Load *p
+	addiu t0, t0, 1 # p++
+	sw t0, O_P(fp) # Save new *p in LTA
 
-	# b for
+	b for
 
 exit:
 	lw a0, O_A0(sp)
