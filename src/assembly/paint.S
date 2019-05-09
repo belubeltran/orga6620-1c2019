@@ -94,7 +94,7 @@ get_next_orientation:
 	lw t0, O_I(fp) # Load current i
 	lw t1, O_R(fp) # Load *r
 	addu t0, t0, t1 # Getting dir
-	lw t2, 0(t0) # Getting r[i]
+	lb t2, 0(t0) # Getting r[i]
 	move a1, t2 # Save parameter for function call
 	# Function call
 	jal getNextOrientation
