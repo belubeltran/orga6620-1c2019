@@ -70,20 +70,20 @@ save_next_color:
 	lw t2, O_ANTX(t0) # t2 = ant->x
 	lw t3, O_ANTY(t0) # t3 = ant->y
 	li t0, 4 # t0 = 4
-	mul t3, t3, t0 # Multiply address by 4
+	mul t2, t2, t0 # Multiply x address by 4
+	mul t3, t3, t0 # Multiply y address by 4
 
 	# Load Grid
 	lw t0, O_G(fp) # Load *g
 	lw t4, O_GRID(t0) # t4 = *grid
 	addu t4, t4, t3 # moving the pointer in the y direction of the grid
 	lw t5, 0(t4) # getting the height array dir
-	lw t7, 0(t5) # Just checking whats in there
 	addu t5, t5, t2 # moving the pointer in the x dir of the grid
 
 	# Save new palette value
 	lw t4, O_P(fp) # Loading p*
 	lb t2, 0(t4) # Getting value in *p
-	sb t2, 0(t5) # g->grid[a->x][a->y] = *p
+	sw t2, 0(t5) # g->grid[a->x][a->y] = *p
 
 get_next_orientation:
 	# Load Ant
