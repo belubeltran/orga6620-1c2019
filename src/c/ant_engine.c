@@ -29,7 +29,7 @@ getNextOrientation(orientation_t current, rotation_t rotation)
 			}
 			return SOUTH;
 		default:
-			return NULL;
+			return 0;
 	}
 }
 
