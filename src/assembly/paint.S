@@ -70,7 +70,7 @@ save_next_color:
 	lw t2, O_ANTX(t0) # t2 = ant->x
 	lw t3, O_ANTY(t0) # t3 = ant->y
 	li t2, 0
-	li t3, 0
+	li t3, 1
 	li t0, 4 # t0 = 4
 	mul t2, t2, t0 # Multiply x address by 4
 	mul t3, t3, t0 # Multiply y address by 4
