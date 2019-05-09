@@ -65,7 +65,7 @@ main(int argc, char **argv)
     {0, 0, 0, 0}
   };
   static int long_index = 0;
-  static char *rule_spec, *grid_spec, *colour_spec;
+  static char *rule_spec, *colour_spec;
 
   int opt, s, len = 0;
   char *dim_separator;
