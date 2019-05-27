@@ -22,7 +22,7 @@ cache_t* CACHE;
 
 bool validate_adress(int address) {
 	if (address >= MAX_ADDRESS){
-		printf("The specified address is very large. The address limit is: %d\n", MAX_ADDRESS);
+		printf("The specified address is too large. The address limit is: %d\n", MAX_ADDRESS);
 		return false;
 	}
 	return true;
@@ -30,7 +30,7 @@ bool validate_adress(int address) {
 
 bool validate_value(int value) {
 	if (value >= SIZE_OF_BYTE){
-		printf("The specified value is more bigger that a byte\n");
+		printf("The specified value is bigger that a byte\n");
 		return false;
 	}
 	return true;

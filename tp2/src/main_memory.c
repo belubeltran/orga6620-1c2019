@@ -15,7 +15,8 @@ main_memory_block_t* init_main_memory_block() {
     abort();
   }
 
-  block->data = malloc(MAIN_MEMORY_BLOCK_SIZE * sizeof(char*));
+  block->data = malloc(MAIN_MEMORY_BLOCK_SIZE * sizeof(char));
+  
   if (!block->data){
     printf("Error initializing data blocks from main memory\n");
     abort();
@@ -38,7 +39,7 @@ void destroy_main_memory_block(main_memory_block_t* block) {
 void init_main_memory() {
   MAIN_MEMORY = malloc(sizeof(main_memory_t));
 
-  if (!MAIN_MEMORY){
+  if (!MAIN_MEMORY) {
     printf("Error initializing main memory\n");
     abort();
   }

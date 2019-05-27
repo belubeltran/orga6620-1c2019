@@ -52,14 +52,15 @@ typedef struct block{
 }block_t;
 
 block_t* init_block() {
-
 	block_t* block = malloc(sizeof(block_t));
+
 	if (!block) {
 		puts("Error initializing blocks from cache");
 		abort();
 	}
 	
-	block->data = malloc(BLOCK_SIZE * sizeof(char*));
+	block->data = malloc(BLOCK_SIZE * sizeof(char));
+
 	if (!block->data) {
 		puts("Error initializing data blocks from cache");
 		abort();
@@ -73,7 +74,9 @@ block_t* init_block() {
 }
 
 void destroy_block(block_t* block) {
-	if(block) free(block->data);
+	if(block) {
+		free(block->data);
+	}
 	free(block);
 }
 
@@ -106,7 +109,7 @@ void destroy_cache_set(cache_set_t* cache_set) {
 			destroy_block(cache_set->blocks[i]);
 		}
 	}
-	
+
 	free(cache_set);
 }
 
@@ -122,8 +125,8 @@ typedef struct cache {
 } cache_t;
 
 void init() {
-
 	CACHE = malloc(sizeof(cache_t));
+
 	if (!CACHE) {
 		puts("Error initializing cache");
 		abort();
@@ -276,11 +279,8 @@ void write_byte(unsigned int address, unsigned char value) {
 
 	// Update main memory
   int blocknum = address >> SHIFT_OFFSET;
-  char* data = malloc(sizeof(char));
-  (*data) = value;
-  strcpy(MAIN_MEMORY->blocks[blocknum]->data, data);
+  MAIN_MEMORY->blocks[blocknum]->data[offset] = value;
 
-  free(data);
 	return;
 }
 
