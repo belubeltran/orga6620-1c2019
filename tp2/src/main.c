@@ -11,6 +11,7 @@
 #define READ 1
 #define WRITE 2
 #define MISS_RATE 3
+#define FLUSH 4
 
 const int MAX_LENGTH = 256;
 const int MAX_LENGTH_LINES = 256;
@@ -45,6 +46,9 @@ bool process(char* line) {
 		if (strcmp(token, "MR\n") == 0) {
 			operation = MISS_RATE;
 		}
+		else if (strcmp(token, "FLUSH\n") == 0) {
+			operation = FLUSH;
+		}
 		else if (strcmp(token, "R") == 0) {
 			operation = READ;
 			token = strtok(NULL, " ");
@@ -76,9 +80,8 @@ bool process(char* line) {
   }
 
   int result;
-  switch(operation){
+  switch(operation) {
   	case READ:
-  		printf("reading %d\n", register_1);
 			if (!validate_adress(register_1)) {
 				return false;
 			}
@@ -86,17 +89,20 @@ bool process(char* line) {
 			printf("%d\n", result >= 0 ? result:result+SIZE_OF_BYTE);
   		break;
   	case WRITE:
-  		printf("writing %d in %d\n", register_2, register_1);
   		if (!validate_adress(register_1) || !validate_value(register_2)) {
   			return false;
   		}
   		write_byte(register_1, register_2);
   		break;
   	case MISS_RATE:
-  		printf("Calculating miss rate...\n");
 			printf("%.2f\n", get_miss_rate());
   		break;
+  	case FLUSH:
+			destroy();
+			init();
+  		break;
   }
+  
   return true;
 }
 

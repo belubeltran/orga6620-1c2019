@@ -232,11 +232,9 @@ unsigned char read_byte(unsigned int address) {
 	set = find_set(address);
 	if (set != -1) {
 		CACHE->hits++;
-		puts("HIT");
 		value = *(CACHE->ways[set]->blocks[index]->data + offset);
 	} 
 	else {
-		puts("MISS");
 		CACHE->misses++;
 		unsigned int way_oldest_block = select_oldest(index);
 		read_tocache(address >> SHIFT_OFFSET, way_oldest_block, index);
@@ -265,7 +263,6 @@ void write_byte(unsigned int address, unsigned char value) {
 	int set = find_set(address);
 	if (set != -1) {
 		CACHE->hits++;
-		puts("HIT");
 		*(CACHE->ways[set]->blocks[index]->data + offset) = value;
 		CACHE->ways[set]->blocks[index]->dirty = 0;
 		CACHE->ways[set]->blocks[index]->valid = 1;
@@ -274,7 +271,6 @@ void write_byte(unsigned int address, unsigned char value) {
 	}
 	else {
 		CACHE->misses++;
-		puts("MISS");
 	}
 
 	// Update main memory
