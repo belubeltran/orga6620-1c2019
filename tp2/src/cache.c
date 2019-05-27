@@ -29,44 +29,6 @@
 
 /* -------------------- UTILS --------------------- */
 
-char* int_to_binary(int n, size_t bits) {
-	int c, d, count;
-	char *pointer;
-
-	count = 0;
-	pointer = (char*)malloc(bits + 1);
-	if (!pointer) {
-		puts("ERROR: Can't Initialize blocks from cache");
-		abort();
-	}
-
-	for (c = bits - 1; c >= 0; c--) {
-		d = n >> c;
-
-		if (d & 1)
-			*(pointer+count) = 1 + '0';
-		else
-			*(pointer+count) = 0 + '0';
-
-		count++;
-	}
-	*(pointer+count) = '\0';
-
-	return  pointer;
-}
-
-int binary_to_int(char* bin, size_t bits) {
-	int result = 0;
-	int count = bits - 1;
-	for (int i = 0; i < bits; ++i) {
-		if (bin[i] == '1') {
-			result += pow(2, count);
-		}
-		count--;
-	}
-	return result;
-}
-
 unsigned int get_tag(unsigned int address) {
 	return (address & AND_TAG) >> SHIFT_TAG;
 }
@@ -79,7 +41,7 @@ unsigned int get_offset(unsigned int address) {
 	return (address & AND_OFFSET);
 }
 
-/* -----------------BLOCK ------------------- */
+/* ----------------- BLOCK ------------------- */
 
 typedef struct block{
 	time_t lastUpdate;
@@ -121,7 +83,6 @@ void destroy_block(block_t* block) {
 
 typedef struct cache_set{
 	block_t* blocks[BLOCKS];
-	size_t blocks_count;
 }cache_set_t;
 
 cache_set_t* init_cache_set() {
@@ -132,9 +93,7 @@ cache_set_t* init_cache_set() {
 		abort();
 	}
 
-	cache_set->blocks_count = BLOCKS;
-
-	for (int i = 0; i < cache_set->blocks_count; ++i) {
+	for (int i = 0; i < BLOCKS; ++i) {
 		cache_set->blocks[i] = init_block();
 	}
 
@@ -143,11 +102,11 @@ cache_set_t* init_cache_set() {
 
 void destroy_cache_set(cache_set_t* cache_set) {
 	if (cache_set) {
-		for (int i = 0; i < cache_set->blocks_count; ++i) {
+		for (int i = 0; i < BLOCKS; ++i) {
 			destroy_block(cache_set->blocks[i]);
 		}
 	}
-	cache_set->blocks_count = 0;
+	
 	free(cache_set);
 }
 
@@ -232,33 +191,7 @@ unsigned int select_oldest(unsigned int setnum) {
 	return oldest;
 }
 
-int is_dirty(int way, int setnum) {
-	if (!CACHE) {
-		puts("ERROR: The Cache isn't initialized");
-		return 0;
-	}
-	
-	if (WAYS < way) {
-		puts("ERROR: The Cache Set especified don't exists");
-		return 0;
-	}else if(!CACHE->ways[way-1]) {
-		puts("ERROR: The Cache Set especified isn't initialized");
-		return 0;
-	}
-
-	if(CACHE->ways[way-1]->blocks_count < setnum) {
-		puts("ERROR: The Block especified in the Cache Set don't exists");
-		return 0;
-	}else if(!CACHE->ways[way-1]->blocks[setnum-1]) {
-		puts("ERROR: This Block especified in the Cache Set isn't initialized");
-		return 0;
-	}
-
-	return CACHE->ways[way-1]->blocks[setnum-1]->dirty;
-}
-
 void read_tocache(unsigned int blocknum, unsigned int way, unsigned int set) {
-
   if (MAIN_MEMORY->blocks_count < blocknum) {
 		puts("The main memory block especified does not exists");
 		return;
@@ -267,6 +200,9 @@ void read_tocache(unsigned int blocknum, unsigned int way, unsigned int set) {
 		puts("The Main Memory data especified is not initialized");
 		return;
 	}
+
+	// Time
+	sleep(1);
 
 	// Reading from main memory
   char* data_in_memory = malloc(BLOCK_SIZE * sizeof(char));
@@ -277,7 +213,9 @@ void read_tocache(unsigned int blocknum, unsigned int way, unsigned int set) {
   CACHE->ways[way]->blocks[set]->dirty = 0;
   CACHE->ways[way]->blocks[set]->valid = 1;
   CACHE->ways[way]->blocks[set]->lastUpdate = time(NULL);
-  CACHE->ways[way]->blocks[set]->tag = get_tag(blocknum);
+  CACHE->ways[way]->blocks[set]->tag = get_tag(blocknum << SHIFT_OFFSET);
+
+  free(data_in_memory);
 }
 
 unsigned char read_byte(unsigned int address) {
@@ -291,9 +229,11 @@ unsigned char read_byte(unsigned int address) {
 	set = find_set(address);
 	if (set != -1) {
 		CACHE->hits++;
+		puts("HIT");
 		value = *(CACHE->ways[set]->blocks[index]->data + offset);
 	} 
 	else {
+		puts("MISS");
 		CACHE->misses++;
 		unsigned int way_oldest_block = select_oldest(index);
 		read_tocache(address >> SHIFT_OFFSET, way_oldest_block, index);
@@ -315,10 +255,14 @@ void write_byte(unsigned int address, unsigned char value) {
 	unsigned int index = get_index(address);
 	unsigned int offset = get_offset(address);
 
+	// Time
+	sleep(1);
+
 	// If block is in cache, then update it and then update main memory
 	int set = find_set(address);
 	if (set != -1) {
 		CACHE->hits++;
+		puts("HIT");
 		*(CACHE->ways[set]->blocks[index]->data + offset) = value;
 		CACHE->ways[set]->blocks[index]->dirty = 0;
 		CACHE->ways[set]->blocks[index]->valid = 1;
@@ -327,6 +271,7 @@ void write_byte(unsigned int address, unsigned char value) {
 	}
 	else {
 		CACHE->misses++;
+		puts("MISS");
 	}
 
 	// Update main memory

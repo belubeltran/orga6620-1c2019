@@ -3,7 +3,7 @@
 
 #define MAIN_MEMORY_SIZE 		64 * 1024 // 64KB
 #define MAIN_MEMORY_BLOCK_SIZE	64 // 64B
-#define MAIN_MEMORY_BLOCKS		( 64 * 1024 ) / 64
+#define MAIN_MEMORY_BLOCKS		( 64 * 1024 ) / 64 // 1024
 
 typedef struct main_memory_block {
     char* data;

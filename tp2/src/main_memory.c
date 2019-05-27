@@ -44,7 +44,7 @@ void init_main_memory() {
   }
 
   MAIN_MEMORY->blocks_count = MAIN_MEMORY_BLOCKS;
-  MAIN_MEMORY->size = 64 * 1024;
+  MAIN_MEMORY->size = MAIN_MEMORY_SIZE;
 
   for (int i = 0; i < MAIN_MEMORY->blocks_count; ++i){
     MAIN_MEMORY->blocks[i] = init_main_memory_block();
