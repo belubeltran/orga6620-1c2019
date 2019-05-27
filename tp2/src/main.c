@@ -53,7 +53,7 @@ bool process(char* line) {
 			operation = READ;
 			token = strtok(NULL, " ");
 			if (!token) {
-				printf("ERROR IN COMMAND READ: Inconsitence reading the file\n");
+				printf("Error in read command: incorrect amount of parameters\n");
 				return false;
 			}
 			register_1 = atoi(token);
@@ -62,19 +62,19 @@ bool process(char* line) {
 			operation = WRITE;
 			token = strtok(NULL, ",");
 			if (!token) {
-				printf("ERROR IN COMMAND WRITE: Inconsitence reading the file\n");
+				printf("Error in write command: incorrect amount of parameters\n");
 				return false;
 			}
 			register_1 = atoi(token);
     	token = strtok(NULL, " ");
     	if (!token) {
-				printf("ERROR IN COMMAND READ: Inconsitence reading the file\n");
+				printf("Error in write command: incorrect amount of parameters\n");
 				return false;
 			}
 			register_2 = atoi(token);
 		}
 		else {
-			printf("ERROR READING THE NEXT LINE\n%s\nINCOSITENCE IN THE FILE\n", token);
+			printf("Error reading next line: command not found\n");
 			return false;
 		}
   }
@@ -102,7 +102,7 @@ bool process(char* line) {
 			init();
   		break;
   }
-  
+
   return true;
 }
 
