@@ -46,7 +46,6 @@ unsigned int get_offset(unsigned int address) {
 typedef struct block{
 	time_t lastUpdate;
 	int valid;
-	int dirty;
 	int tag;
 	char* data;
 }block_t;
@@ -68,7 +67,6 @@ block_t* init_block() {
 	
 	block->lastUpdate = time(NULL);
 	block->valid = 0;
-	block->dirty = 0;
 
 	return block;
 }
@@ -213,7 +211,6 @@ void read_tocache(unsigned int blocknum, unsigned int way, unsigned int set) {
 
 	// Saving data to way & set
   strcpy(CACHE->ways[way]->blocks[set]->data, data_in_memory);
-  CACHE->ways[way]->blocks[set]->dirty = 0;
   CACHE->ways[way]->blocks[set]->valid = 1;
   CACHE->ways[way]->blocks[set]->lastUpdate = time(NULL);
   CACHE->ways[way]->blocks[set]->tag = get_tag(blocknum << SHIFT_OFFSET);
@@ -264,7 +261,6 @@ void write_byte(unsigned int address, unsigned char value) {
 	if (set != -1) {
 		CACHE->hits++;
 		*(CACHE->ways[set]->blocks[index]->data + offset) = value;
-		CACHE->ways[set]->blocks[index]->dirty = 0;
 		CACHE->ways[set]->blocks[index]->valid = 1;
 		CACHE->ways[set]->blocks[index]->lastUpdate = time(NULL);
 		CACHE->ways[set]->blocks[index]->tag = tag;
